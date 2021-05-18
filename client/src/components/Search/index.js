@@ -180,10 +180,10 @@ class Search extends Component {
                             {this.state.results.length ? this.state.results.map(transaction =>
                                 <tr key={transaction.transactionHash}>
                                     <td>
-                                        <a role="button" tabIndex="0" type="button"
-                                           className="js-txnAdditional-1 btn btn-xs btn-icon btn-soft-secondary myFnExpandBox">
-                                            <i className="far fa-eye btn-icon__inner"></i>
-                                        </a>
+                                        {/*<a role="button" tabIndex="0" type="button" href="#"*/}
+                                        {/*   className="js-txnAdditional-1 btn btn-xs btn-icon btn-soft-secondary myFnExpandBox">*/}
+                                        {/*    <i className="far fa-eye btn-icon__inner"></i>*/}
+                                        {/*</a>*/}
                                     </td>
                                     <td>
                                 <span className="hash-tag text-truncate myFnExpandBox_searchVal">
