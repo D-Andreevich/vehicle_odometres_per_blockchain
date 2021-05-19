@@ -14,3 +14,14 @@
     font-size: 3.5rem;
   }
 }
+
+.hash-tag {
+  max-width: 171px;
+  display: inline-block;
+  vertical-align: bottom;
+}
+
+.table-dark {
+  color: #fff;
+  background-color: #212529;
+}

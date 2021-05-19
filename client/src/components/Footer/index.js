@@ -1,11 +1,14 @@
 import React from 'react'
 
 const Footer = _ => (
-    <footer className="cover-container mx-auto  mastfoot mt-auto">
+    <footer className="cover-container mx-auto mastfoot mt-auto">
         <div className="inner">
-            <p>Cover template for <a href="https://getbootstrap.com/">Bootstrap</a>, by <a
-                href="https://twitter.com/mdo">@mdo</a>.</p>
+            <p>Project create for <a href="https://getbootstrap.com/">KHPI</a>, by <a
+                href="https://twitter.com/mdo">D-Andreevich</a>.
+                <span> 2021</span>
+            </p>
         </div>
+
     </footer>
 );
 

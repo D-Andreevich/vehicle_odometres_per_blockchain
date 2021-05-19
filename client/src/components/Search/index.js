@@ -112,133 +112,105 @@ class Search extends Component {
 
     render() {
         return (
-            <div className="wrapper">
-                <div className="section">
-                    <h2>Search Vehicle Mileage</h2>
-                    <div>
-                        <form
-                            className="pure-form pure-form-stacked"
-                            onSubmit={this.handleSubmit}
-                        >
+            <div>
+                <div className="cover-container mx-auto mastfoot mt-auto">
+                    <h2>Search History Vehicle Mileage</h2>
+                    <br/>
+                    <form className="form-inline justify-content-center" onSubmit={this.handleSubmit}>
+                        <div className="form-group mx-sm-3 mb-2">
+                            <label htmlFor="VinNumber" className="sr-only">Vin Number</label>
                             <input
-                                key="VinNumber"
                                 type="text"
-                                placeholder="Vin Number"
+                                className="form-control"
                                 name="VinNumber"
+                                id="VinNumber"
                                 value={this.state["VinNumber"] || ''}
                                 onChange={this.handleInputChange}
-                            />
-                            <button
-                                key="submit"
-                                className="pure-button"
-                                type="button"
-                                onClick={this.handleSubmit}
-                            >
-                                Submit
-                            </button>
-                        </form>
-                    </div>
-                    <h2>Result Address</h2>
-                    <p>
-                        {
-                            this.state.dataKey in
-                            this.props.contracts[this.props.contract][this.props.method] ?
-                                <span>{this.props.contracts[this.props.contract][this.props.method][this.state.dataKey].value} : </span>
-                                : <span>Fetching...</span>
-                        }
-                        {
-                            this.state.balanceKey in
-                            this.props.contracts[this.props.contract]["balanceOf"] ?
-                                <span>{this.props.contracts[this.props.contract]["balanceOf"][this.state.balanceKey].value}</span>
-                                : ''
-                        }
-                    </p>
-                </div>
-                <div className="card">
-                    <div className="card-header d-flex justify-content-between align-items-center p-0">
-                        <ul className="nav nav-custom nav-borderless nav_tabs1" id="nav_tabs" role="tablist">
-                            <li id="ContentPlaceHolder1_li_transactions" className="nav-item"><a
-                                className="nav-link active" href="#transactions"
-                                data-title="Primary Transactions"
-                                data-toggle="tab" onClick="javascript:updatehash('');">Transactions</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div className="card-body">
-                        <div className="tab-content">
-                            <div className="tab-pane fade active show" id="tokentxns">
-                                <div className="table-responsive">
-                                    <table className="table table-md-text-normal table-hover mb-4">
-                                        <thead className="thead-light">
-                                        <tr>
-                                            <th scope="col"></th>
-                                            <th scope="col">Txn Hash</th>
-                                            <th scope="col">Method
-                                                <i className="fal fa-info-circle" data-toggle="tooltip"
-                                                   data-html="true" data-boundary="viewport" title=""
-                                                   data-original-title="Function executed based on decoded input data. For unidentified functions, method ID is displayed instead.">
-                                                </i>
-                                            </th>
-                                            <th scope="col">From</th>
-                                            <th scope="col" width="30"></th>
-                                            <th scope="col">To</th>
-                                            <th scope="col">Quantity</th>
-                                            <th scope="col">DateTime</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        {this.state.results.length ? this.state.results.map(transaction =>
-                                                <tr key={transaction.transactionHash}>
-                                                    <td>
-                                                        {/*<a role="button" tabIndex="0" type="button" href="#"*/}
-                                                        {/*   className="js-txnAdditional-1 btn btn-xs btn-icon btn-soft-secondary myFnExpandBox">*/}
-                                                        {/*    <i className="far fa-eye btn-icon__inner"></i>*/}
-                                                        {/*</a>*/}
-                                                    </td>
-                                                    <td>
-                                <span className="hash-tag text-truncate myFnExpandBox_searchVal">
-                                    <a
-                                        href={`/tx/${transaction.transactionHash}`}
-                                        target="_parent">{transaction.transactionHash}</a>
-                                </span>
-                                                    </td>
-                                                    <td>
-                                    <span style={{minWidth: '68px'}}
-                                          className="u-label u-label--xs u-label--info rounded text-dark text-center"
-                                          data-toggle="tooltip" data-boundary="viewport" data-html="true" title=""
-                                          data-original-title="Transfer">Transfer</span>
-                                                    </td>
-                                                    <td>
-                                <span className="hash-tag text-truncate" data-toggle="tooltip" title=""
-                                      data-original-title={transaction.returnValues.from}>{transaction.returnValues.from}</span>
-                                                    </td>
-                                                    <td>
-                                <span
-                                    className="u-label u-label--xs u-label--warning color-strong text-uppercase text-center w-100 rounded text-nowrap">OUT</span>
-                                                    </td>
-                                                    <td>
-                                                        <a className="hash-tag text-truncate"
-                                                           href={`${transaction.returnValues.from}?a=${transaction.returnValues.to}`}
-                                                           target="_parent" data-toggle="tooltip" title=""
-                                                           data-original-title={transaction.returnValues.to}>{transaction.returnValues.to}</a>
-                                                    </td>
-                                                    <td>{transaction.returnValues.value}</td>
-                                                    <td><FormatTimestamp
-                                                        unixTimestamp={+transaction.returnValues.timestamp}/></td>
-                                                </tr>
-                                        ) : <tr key="none_data">
-                                            <td colSpan="10">
-                                                <div className="alert alert-warning mb-0" role="alert">
-                                                    There are no matching entries
-                                                </div>
-                                            </td>
-                                        </tr>}
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
+                                aria-describedby="vinNumberHelpBlock"
+                                placeholder="Vin Number"/>
                         </div>
-                    </div>
+                        <button
+                            type="submit"
+                            onClick={this.handleSubmit}
+                            className="btn btn-primary mb-2">
+                            Show history
+                        </button>
+                        <small id="vinNumberHelpBlock" className="form-text text-muted">
+                            A VIN is composed of 17 characters (digits and capital letters) that act as a unique
+                            identifier for the vehicle.
+                        </small>
+                    </form>
+                    <br/>
+                    <h2>Result Address</h2>
+                    {
+                        this.state.dataKey in
+                        this.props.contracts[this.props.contract][this.props.method] ?
+                            <h5 className="text-white">
+                                {this.props.contracts[this.props.contract][this.props.method][this.state.dataKey].value} {" "}
+                                {this.state.balanceKey in
+                                this.props.contracts[this.props.contract]["balanceOf"] ?
+                                     <span
+                                        className="badge badge-light">{this.props.contracts[this.props.contract]["balanceOf"][this.state.balanceKey].value} KM</span>
+                                    : ''
+                                }
+                            </h5>
+                            : <span>Fetching ...</span>
+                    }
+                </div>
+                <br/>
+                <h2 className="text-left">Transactions</h2>
+                <div className="table-responsive">
+                    <table className="table table-dark table-md-text-normal table-hover mb-4">
+                        <thead className="">
+                        <tr>
+                            <th scope="col">Txn Hash</th>
+
+                            <th scope="col">From</th>
+                            <th scope="col">To</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">DateTime</th>
+                        </tr>
+                        </thead>
+                        <tbody className="">
+                        {this.state.results.length ? this.state.results.map(transaction =>
+                            <tr className="" key={transaction.transactionHash}>
+                                <td>
+                                    <span className="hash-tag text-truncate">
+                                        <a
+                                            href={`/tx/${transaction.transactionHash}`}
+                                            target="_parent">{transaction.transactionHash}</a>
+                                    </span>
+                                </td>
+                                <td>
+                                    <span className="hash-tag text-truncate" data-toggle="tooltip"
+                                          title=""
+                                          data-original-title={transaction.returnValues.from}>
+                                        {transaction.returnValues.from}
+                                    </span>
+                                </td>
+                                <td>
+                                    <a className="hash-tag text-truncate"
+                                       href={`${transaction.returnValues.from}?a=${transaction.returnValues.to}`}
+                                       target="_parent" data-toggle="tooltip" title=""
+                                       data-original-title={transaction.returnValues.to}>{transaction.returnValues.to}</a>
+                                </td>
+                                <td>
+                                    <span className="badge badge-light">{transaction.returnValues.value}</span>
+                                </td>
+                                <td>
+                                    <FormatTimestamp
+                                        unixTimestamp={+transaction.returnValues.timestamp}/>
+                                </td>
+                            </tr>
+                        ) : <tr key="none_data">
+                            <td colSpan="10">
+                                <div className="alert alert-warning mb-0" role="alert">
+                                    There are no matching entries
+                                </div>
+                            </td>
+                        </tr>}
+                        </tbody>
+                    </table>
                 </div>
             </div>
         )
