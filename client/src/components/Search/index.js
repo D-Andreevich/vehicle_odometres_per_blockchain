@@ -19,18 +19,21 @@ class Search extends Component {
         this.getTransactionsByAccount = this.getTransactionsByAccount.bind(this);
     }
 
-    componentWillReceiveProps(nextProps) {
+    componentWillUpdate(nextProps, nextState) {
         const {contracts, contract, method} = this.props;
 
-        const _current = this.state.dataKey in contracts[contract][method];
-        const _next = this.state.dataKey in nextProps.contracts[nextProps.contract][nextProps.method];
-        const _currentAcc = _current && contracts[nextProps.contract][nextProps.method][this.state.dataKey].value
-        const _nextAcc = _next && nextProps.contracts[nextProps.contract][nextProps.method][this.state.dataKey].value
+        const _current = nextState.dataKey in contracts[contract][method];
+        const _next = nextState.dataKey in nextProps.contracts[nextProps.contract][nextProps.method];
+
+        const _currentAcc = _current && contracts[contract][method][this.state.dataKey].value
+        const _nextAcc = _next && nextProps.contracts[nextProps.contract][nextProps.method][nextState.dataKey].value
         const didChange = _current !== _next;
         const didChangeAcc = _currentAcc !== _nextAcc;
+        const didChangeInput = this.state.dataKey !== nextState.dataKey;
 
-        if (didChange || didChangeAcc) {
-            let account = nextProps.contracts[nextProps.contract][nextProps.method][this.state.dataKey].value;
+        if (didChange && didChangeAcc || didChangeAcc && didChangeInput) {
+            let account = nextProps.contracts[nextProps.contract][nextProps.method][nextState.dataKey].value;
+
             this.setState({
                 balanceKey: this.contracts[contract]
                     .methods["balanceOf"].cacheCall(account)
@@ -52,7 +55,6 @@ class Search extends Component {
 
     handleSubmit(event) {
         event.preventDefault();
-
         this.setState({
             dataKey: this.contracts[this.props.contract].methods[this.props.method].cacheCall(this.state.VinNumber),
         })
@@ -149,7 +151,7 @@ class Search extends Component {
                                 {this.props.contracts[this.props.contract][this.props.method][this.state.dataKey].value} {" "}
                                 {this.state.balanceKey in
                                 this.props.contracts[this.props.contract]["balanceOf"] ?
-                                     <span
+                                    <span
                                         className="badge badge-light">{this.props.contracts[this.props.contract]["balanceOf"][this.state.balanceKey].value} KM</span>
                                     : ''
                                 }
