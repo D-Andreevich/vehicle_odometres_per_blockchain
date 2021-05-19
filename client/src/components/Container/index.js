@@ -1,5 +1,5 @@
-import MyComponent from '../MyComponent'
-import { drizzleConnect } from '@drizzle/react-plugin'
+import {drizzleConnect} from '@drizzle/react-plugin'
+import RouteComponent from "../RouteComponent";
 
 
 const mapStateToProps = state => ({
@@ -8,10 +8,10 @@ const mapStateToProps = state => ({
     drizzleStatus: state.drizzleStatus
 })
 
-const MyContainer = drizzleConnect(
-    MyComponent,
+const Container = drizzleConnect(
+    RouteComponent,
     mapStateToProps
 )
 
 
-export default MyContainer
+export default Container

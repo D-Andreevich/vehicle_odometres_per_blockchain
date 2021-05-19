@@ -112,7 +112,7 @@ class Search extends Component {
 
     render() {
         return (
-            <div>
+            <div className="wrapper">
                 <div className="section">
                     <h2>Search Vehicle Mileage</h2>
                     <div>
@@ -154,76 +154,90 @@ class Search extends Component {
                         }
                     </p>
                 </div>
-                <hr/>
-                <div>
-                    <h2>Transactions History</h2>
-                    <div>
-                        <table className="table table-md-text-normal table-hover mb-4">
-                            <thead className="thead-light">
-                            <tr>
-                                <th scope="col"></th>
-                                <th scope="col">Txn Hash</th>
-                                <th scope="col">Method
-                                    <i className="fal fa-info-circle" data-toggle="tooltip"
-                                       data-html="true" data-boundary="viewport" title=""
-                                       data-original-title="Function executed based on decoded input data. For unidentified functions, method ID is displayed instead.">
-                                    </i>
-                                </th>
-                                <th scope="col">From</th>
-                                <th scope="col" width="30"></th>
-                                <th scope="col">To</th>
-                                <th scope="col">Quantity</th>
-                                <th scope="col">DateTime</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {this.state.results.length ? this.state.results.map(transaction =>
-                                <tr key={transaction.transactionHash}>
-                                    <td>
-                                        {/*<a role="button" tabIndex="0" type="button" href="#"*/}
-                                        {/*   className="js-txnAdditional-1 btn btn-xs btn-icon btn-soft-secondary myFnExpandBox">*/}
-                                        {/*    <i className="far fa-eye btn-icon__inner"></i>*/}
-                                        {/*</a>*/}
-                                    </td>
-                                    <td>
+                <div className="card">
+                    <div className="card-header d-flex justify-content-between align-items-center p-0">
+                        <ul className="nav nav-custom nav-borderless nav_tabs1" id="nav_tabs" role="tablist">
+                            <li id="ContentPlaceHolder1_li_transactions" className="nav-item"><a
+                                className="nav-link active" href="#transactions"
+                                data-title="Primary Transactions"
+                                data-toggle="tab" onClick="javascript:updatehash('');">Transactions</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div className="card-body">
+                        <div className="tab-content">
+                            <div className="tab-pane fade active show" id="tokentxns">
+                                <div className="table-responsive">
+                                    <table className="table table-md-text-normal table-hover mb-4">
+                                        <thead className="thead-light">
+                                        <tr>
+                                            <th scope="col"></th>
+                                            <th scope="col">Txn Hash</th>
+                                            <th scope="col">Method
+                                                <i className="fal fa-info-circle" data-toggle="tooltip"
+                                                   data-html="true" data-boundary="viewport" title=""
+                                                   data-original-title="Function executed based on decoded input data. For unidentified functions, method ID is displayed instead.">
+                                                </i>
+                                            </th>
+                                            <th scope="col">From</th>
+                                            <th scope="col" width="30"></th>
+                                            <th scope="col">To</th>
+                                            <th scope="col">Quantity</th>
+                                            <th scope="col">DateTime</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {this.state.results.length ? this.state.results.map(transaction =>
+                                                <tr key={transaction.transactionHash}>
+                                                    <td>
+                                                        {/*<a role="button" tabIndex="0" type="button" href="#"*/}
+                                                        {/*   className="js-txnAdditional-1 btn btn-xs btn-icon btn-soft-secondary myFnExpandBox">*/}
+                                                        {/*    <i className="far fa-eye btn-icon__inner"></i>*/}
+                                                        {/*</a>*/}
+                                                    </td>
+                                                    <td>
                                 <span className="hash-tag text-truncate myFnExpandBox_searchVal">
                                     <a
                                         href={`/tx/${transaction.transactionHash}`}
                                         target="_parent">{transaction.transactionHash}</a>
                                 </span>
-                                    </td>
-                                    <td>
+                                                    </td>
+                                                    <td>
                                     <span style={{minWidth: '68px'}}
                                           className="u-label u-label--xs u-label--info rounded text-dark text-center"
                                           data-toggle="tooltip" data-boundary="viewport" data-html="true" title=""
                                           data-original-title="Transfer">Transfer</span>
-                                    </td>
-                                    <td>
+                                                    </td>
+                                                    <td>
                                 <span className="hash-tag text-truncate" data-toggle="tooltip" title=""
                                       data-original-title={transaction.returnValues.from}>{transaction.returnValues.from}</span>
-                                    </td>
-                                    <td>
+                                                    </td>
+                                                    <td>
                                 <span
                                     className="u-label u-label--xs u-label--warning color-strong text-uppercase text-center w-100 rounded text-nowrap">OUT</span>
-                                    </td>
-                                    <td>
-                                        <a className="hash-tag text-truncate"
-                                           href={`${transaction.returnValues.from}?a=${transaction.returnValues.to}`}
-                                           target="_parent" data-toggle="tooltip" title=""
-                                           data-original-title={transaction.returnValues.to}>{transaction.returnValues.to}</a>
-                                    </td>
-                                    <td>{transaction.returnValues.value}</td>
-                                    <td><FormatTimestamp unixTimestamp={+transaction.returnValues.timestamp}/></td>
-                                </tr>
-                            ) : <tr key="none_data">
-                                <td colSpan="10">
-                                    <div className="alert alert-warning mb-0" role="alert">
-                                        There are no matching entries
-                                    </div>
-                                </td>
-                            </tr>}
-                            </tbody>
-                        </table>
+                                                    </td>
+                                                    <td>
+                                                        <a className="hash-tag text-truncate"
+                                                           href={`${transaction.returnValues.from}?a=${transaction.returnValues.to}`}
+                                                           target="_parent" data-toggle="tooltip" title=""
+                                                           data-original-title={transaction.returnValues.to}>{transaction.returnValues.to}</a>
+                                                    </td>
+                                                    <td>{transaction.returnValues.value}</td>
+                                                    <td><FormatTimestamp
+                                                        unixTimestamp={+transaction.returnValues.timestamp}/></td>
+                                                </tr>
+                                        ) : <tr key="none_data">
+                                            <td colSpan="10">
+                                                <div className="alert alert-warning mb-0" role="alert">
+                                                    There are no matching entries
+                                                </div>
+                                            </td>
+                                        </tr>}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
