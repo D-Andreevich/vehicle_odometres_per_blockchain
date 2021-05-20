@@ -31,7 +31,7 @@ class Search extends Component {
         const didChangeAcc = _currentAcc !== _nextAcc;
         const didChangeInput = this.state.dataKey !== nextState.dataKey;
 
-        if (didChange && didChangeAcc || didChangeAcc && didChangeInput) {
+        if ((didChange && didChangeAcc) || (didChangeAcc && didChangeInput)) {
             let account = nextProps.contracts[nextProps.contract][nextProps.method][nextState.dataKey].value;
 
             this.setState({
