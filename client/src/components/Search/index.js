@@ -22,7 +22,7 @@ class Search extends Component {
     componentWillUpdate(nextProps, nextState) {
         const {contracts, contract, method} = this.props;
 
-        const _current = nextState.dataKey in contracts[contract][method];
+        const _current = this.state.dataKey in contracts[contract][method];
         const _next = nextState.dataKey in nextProps.contracts[nextProps.contract][nextProps.method];
 
         const _currentAcc = _current && contracts[contract][method][this.state.dataKey].value
